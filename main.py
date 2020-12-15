@@ -1,5 +1,6 @@
 import pygame
 import math
+import random
 from queue import PriorityQueue
 
 WIDTH = 800
@@ -137,6 +138,12 @@ def reconstruct_path(came_from, current, draw):
         current.make_path()
         draw()
 
+def make_game(grid, start, end, rows, width):
+    for row in grid:
+        for spot in row:
+            if random.randrange(0, 4) == 0:
+                spot.make_barrier()
+
 
 def algorithm(draw, grid, start, end):
     count = 0
@@ -241,6 +248,12 @@ def main(win, width):
                     start = None
                     end = None
                     grid = make_grid(ROWS, width)
+
+                if event.key == pygame.K_m:
+                    start = None
+                    end = None
+                    grid = make_grid(ROWS, width)
+                    make_game(grid, start, end, ROWS, width)
 
     pygame.quit()
 
